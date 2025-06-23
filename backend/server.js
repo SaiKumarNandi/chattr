@@ -49,7 +49,7 @@ const server = app.listen(
 
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
-  cors: { origin: "http://localhost:3000" },
+  cors: { origin: "https://chattr-5366.onrender.com" || "http://localhost:3000" },
 });
 
 io.on("connection", (socket) => {
