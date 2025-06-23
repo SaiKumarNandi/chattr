@@ -14,7 +14,7 @@ import io from "socket.io-client";
 import Lottie from "react-lottie";
 import animationData from "../animations/typingAnimation.json";
 
-const ENDPOINT = "https://Chattr-yvs0.onrender.com";
+const ENDPOINT = "https://chattr-backend-t3fg.onrender.com";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
