@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import { Box, Text } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/button";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModal";
@@ -102,8 +102,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     });
   });
 
+  
+
   const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+    if (event?.key && event.key !== "Enter") return;
+
+  if (!newMessage) return;
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -133,7 +137,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           isClosable: true,
           position: "bottom",
         });
-      }
+      
     }
   };
 
@@ -251,13 +255,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <Input
-                variant={"filled"}
-                background={"#E0E0E0"}
-                placeholder="Type your message and Press Enter..."
-                onChange={typingHandler}
-                value={newMessage}
-              />
+              <Box display="flex" alignItems="center" gap="2">
+                <Input
+                  variant="filled"
+                  background="#E0E0E0"
+                  placeholder="Type your message and Press Enter..."
+                  onChange={typingHandler}
+                  value={newMessage}
+                />
+                <IconButton
+                  colorScheme="blue"
+                  aria-label="Send message"
+                  icon={<ArrowForwardIcon />}
+                  onClick={sendMessage}
+                />
+              </Box>
             </FormControl>
           </Box>
         </>
